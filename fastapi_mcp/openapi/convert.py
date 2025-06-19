@@ -213,8 +213,8 @@ def convert_openapi_to_mcp_tools(
                 if param_required:
                     required_props.append(param_name)
 
-            # Add query parameters to properties
-            for param_name, param in query_params:
+            # Add query parameters and headers to properties
+            for param_name, param in query_params + header_params:
                 param_schema = param.get("schema", {})
                 param_desc = param.get("description", "")
                 param_required = param.get("required", False)

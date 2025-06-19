@@ -149,14 +149,15 @@ class FastApiMCP:
 
         self.setup_server()
 
-    def setup_server(self) -> None:
-        openapi_schema = get_openapi(
-            title=self.fastapi.title,
-            version=self.fastapi.version,
-            openapi_version=self.fastapi.openapi_version,
-            description=self.fastapi.description,
-            routes=self.fastapi.routes,
-        )
+    def setup_server(self, openapi_schema: Optional[Dict[str, Any]] = None) -> None:
+        if not openapi_schema:
+            openapi_schema = get_openapi(
+                title=self.fastapi.title,
+                version=self.fastapi.version,
+                openapi_version=self.fastapi.openapi_version,
+                description=self.fastapi.description,
+                routes=self.fastapi.routes,
+            )
 
         all_tools, self.operation_map = convert_openapi_to_mcp_tools(
             openapi_schema,
